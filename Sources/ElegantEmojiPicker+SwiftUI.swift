@@ -8,6 +8,13 @@ public struct ElegantEmojiPickerRepresentable: UIViewControllerRepresentable {
     let configuration: ElegantConfiguration
     let localization: ElegantLocalization
 
+    public init(isPresented: Binding<Bool>, selectedEmoji: Binding<Emoji?>, configuration: ElegantConfiguration, localization: ElegantLocalization) {
+        self._isPresented = isPresented
+        self._selectedEmoji = selectedEmoji
+        self.configuration = configuration
+        self.localization = localization
+    }
+
     public func makeUIViewController(context: Context) -> ElegantEmojiPicker {
         let picker = ElegantEmojiPicker(
             delegate: context.coordinator,
