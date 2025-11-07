@@ -2,13 +2,13 @@ import SwiftUI
 import UIKit
 
 @available(iOS 14.0, *)
-struct ElegantEmojiPickerRepresentable: UIViewControllerRepresentable {
+public struct ElegantEmojiPickerRepresentable: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     @Binding var selectedEmoji: Emoji?
     let configuration: ElegantConfiguration
     let localization: ElegantLocalization
 
-    func makeUIViewController(context: Context) -> ElegantEmojiPicker {
+    public func makeUIViewController(context: Context) -> ElegantEmojiPicker {
         let picker = ElegantEmojiPicker(
             delegate: context.coordinator,
             configuration: configuration,
@@ -17,16 +17,16 @@ struct ElegantEmojiPickerRepresentable: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: ElegantEmojiPicker, context: Context) {
+    public func updateUIViewController(_ uiViewController: ElegantEmojiPicker, context: Context) {
         // Updates can be handled here if needed, for example, if configuration or localization could change
         // while the picker is presented. For now, we assume they are set at initialization.
     }
 
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, ElegantEmojiPickerDelegate, UIAdaptivePresentationControllerDelegate {
+    public class Coordinator: NSObject, ElegantEmojiPickerDelegate, UIAdaptivePresentationControllerDelegate {
         var parent: ElegantEmojiPickerRepresentable
 
         init(_ parent: ElegantEmojiPickerRepresentable) {
@@ -34,12 +34,12 @@ struct ElegantEmojiPickerRepresentable: UIViewControllerRepresentable {
         }
 
         // MARK: - ElegantEmojiPickerDelegate
-        func emojiPicker(_ picker: ElegantEmojiPicker, didSelectEmoji emoji: Emoji?) {
+        public func emojiPicker(_ picker: ElegantEmojiPicker, didSelectEmoji emoji: Emoji?) {
             parent.selectedEmoji = emoji
         }
 
         // MARK: - UIAdaptivePresentationControllerDelegate
-        func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
             // Handle dismissal by swipe or other non-programmatic means
             if parent.isPresented {
                 parent.isPresented = false
